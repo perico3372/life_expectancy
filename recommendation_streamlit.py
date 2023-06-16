@@ -12,7 +12,7 @@ import streamlit as st
 from collections import Counter
 
 # Cargar los datos en un DataFrame de pandas
-data = pd.read_csv('DATA_PF_IV.csv')
+data = pd.read_csv('https://raw.githubusercontent.com/perico3372/life_expectancy/main/DATA_PF_IV.csv')
 
 # Seleccionar los indicadores como características
 features = ['Birth rate, crude (per 1,000 people)',
@@ -52,7 +52,7 @@ imputer = SimpleImputer(strategy='mean')
 X_imputed = imputer.fit_transform(X)
 
 # Crear un modelo KNN y ajustarlo a los datos
-model = NearestNeighbors(metric='cosine')
+model = NearestNeighbors(metric='euclidean')
 model.fit(X_imputed)
 
 
