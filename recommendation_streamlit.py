@@ -1,18 +1,16 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Jun 16 12:42:05 2023
-
-@author: Pablo Perez
-"""
-
 import pandas as pd
 from sklearn.neighbors import NearestNeighbors
 from sklearn.impute import SimpleImputer
 import streamlit as st
 from collections import Counter
 
+
+# Título de la aplicación
+st.title("ESPERANZA DE VIDA AL NACER")
+
 # Cargar los datos en un DataFrame de pandas
 data = pd.read_csv('https://raw.githubusercontent.com/perico3372/life_expectancy/main/DATA_PF_IV.csv')
+#data = pd.read_csv('data.csv')
 
 # Seleccionar los indicadores como características
 features = ['Birth rate, crude (per 1,000 people)',
@@ -62,23 +60,40 @@ def get_recommendations(country_index, n_recommendations=3):
     valid_indices = [i for i in indicator_indices if i < len(features)]
     return valid_indices
 
-# Crear una lista para almacenar todas las recomendaciones de indicadores
-all_recommended_indicators = []
 
-for country_index in range(len(data)):
-    recommendations = get_recommendations(country_index)
-    recommended_indicators = [features[i] for i in recommendations]
-    all_recommended_indicators.extend(recommended_indicators)
+# Mostrar la data con opción para seleccionar los 5 primeros o 5 últimos registros
+show_first = st.checkbox("Mostrar los 5 primeros registros")
+show_last = st.checkbox("Mostrar los 5 últimos registros")
 
-# Contar la frecuencia de cada indicador recomendado
-counter = Counter(all_recommended_indicators)
+if show_first:
+    st.write("Primeros 5 registros:")
+    st.dataframe(data.head(5))
+if show_last:
+    st.write("Últimos 5 registros:")
+    st.dataframe(data.tail(5))
 
-# Obtener los indicadores más influyentes
-top_indicators = counter.most_common(7)
+# Subtítulo - Series de tiempo
+st.subheader("Modelo KNN")
 
-# Crear la aplicación Streamlit
-st.title("Indicadores más influyentes para la esperanza de vida")
-st.write("Los siete indicadores más influyentes para la esperanza de vida:")
+# Generar los indicadores más influyentes al hacer clic en un botón
+if st.button("Generar indicadores más influyentes"):
+    # Crear una lista para almacenar todas las recomendaciones de indicadores
+    all_recommended_indicators = []
 
-for indicator, count in top_indicators:
-    st.write(f"- {indicator}")
+    for country_index in range(len(data)):
+        recommendations = get_recommendations(country_index)
+        recommended_indicators = [features[i] for i in recommendations]
+        all_recommended_indicators.extend(recommended_indicators)
+
+    # Contar la frecuencia de cada indicador recomendado
+    counter = Counter(all_recommended_indicators)
+
+    # Obtener los indicadores más influyentes
+    top_indicators = counter.most_common(7)
+
+    # Mostrar los indicadores más influyentes
+    st.title("Indicadores más influyentes para la esperanza de vida")
+    st.write("Los siete indicadores más influyentes para la esperanza de vida:")
+
+    for indicator, count in top_indicators:
+        st.write(f"- {indicator}")
