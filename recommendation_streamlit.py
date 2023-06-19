@@ -1,3 +1,11 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Jun 18 11:21:11 2023
+
+@author: pablo
+"""
+
 import pandas as pd
 from sklearn.neighbors import NearestNeighbors
 from sklearn.impute import SimpleImputer
@@ -18,9 +26,8 @@ query = 'SELECT * FROM [dbo].[Data-Bank]'
 data = pd.read_sql(query, engine)
 
 
-
 # Título de la aplicación
-st.title("ESPERANZA DE VIDA AL NACER")
+#st.title("ESPERANZA DE VIDA AL NACER")
 
 # Cargar los datos en un DataFrame de pandas
 #data = pd.read_csv('https://raw.githubusercontent.com/perico3372/life_expectancy/main/DATA_PF_IV.csv')
@@ -52,9 +59,9 @@ features = ['Birth rate, crude (per 1,000 people)',
             'GDP (current US$)', 'GDP growth (annual %)',
             'Immunization, DPT (% of children ages 12-23 months)',
             'Immunization, measles (% of children ages 12-23 months)',
-            'Esperanza de vida saludable, total',
-            'Esperanza de vida saludable, hombres',
-            'Esperanza de vida saludable, mujeres']
+            'Healthy life expectancy, total (years)',
+            'Healthy life expectancy, male (years)',
+            'Healthy life expectancy, female (years)']
 
 # Crear una matriz de características
 X = data[features].values
