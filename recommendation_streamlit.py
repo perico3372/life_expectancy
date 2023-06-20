@@ -11,26 +11,26 @@ from sklearn.neighbors import NearestNeighbors
 from sklearn.impute import SimpleImputer
 import streamlit as st
 from collections import Counter
-from sqlalchemy import create_engine
+#from sqlalchemy import create_engine
 
-server = 'database1234.database.windows.net'
-database = 'DataBase'
-username = 'administrador'
-password = '42757875P.'
-driver = 'ODBC Driver 17 for SQL Server'
-connection_string = f'mssql+pyodbc://{username}:{password}@{server}/{database}?driver={driver}'
+#server = 'database1234.database.windows.net'
+#database = 'DataBase'
+#username = 'administrador'
+#password = '42757875P.'
+#driver = 'ODBC Driver 17 for SQL Server'
+#connection_string = f'mssql+pyodbc://{username}:{password}@{server}/{database}?driver={driver}'
 
-engine = create_engine(connection_string)
-query = 'SELECT * FROM [dbo].[Data-Bank]'
+#engine = create_engine(connection_string)
+#query = 'SELECT * FROM [dbo].[Data-Bank]'
 
-data = pd.read_sql(query, engine)
+#data = pd.read_sql(query, engine)
 
 
 # Título de la aplicación
-#st.title("ESPERANZA DE VIDA AL NACER")
+st.title("ESPERANZA DE VIDA AL NACER")
 
 # Cargar los datos en un DataFrame de pandas
-#data = pd.read_csv('https://raw.githubusercontent.com/perico3372/life_expectancy/main/DATA_PF_IV.csv')
+data = pd.read_csv('https://raw.githubusercontent.com/perico3372/life_expectancy/main/DATA_PF_IV.csv')
 #data = pd.read_csv('data.csv')
 
 # Seleccionar los indicadores como características
