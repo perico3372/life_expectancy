@@ -26,5 +26,5 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Run main.py and display output
       run: |
-        output=$(python main.py)
+        output=$(python LE.py)
         echo "$output"
